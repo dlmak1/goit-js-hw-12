@@ -3,13 +3,13 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const galleryContainer = document.querySelector('.js-gallery');
 const loader = document.querySelector('.js-loader');
+const loadMoreBtn = document.querySelector('.load-more-btn');
 
 const lightbox = new SimpleLightbox('.js-gallery a', {
   captionsData: 'alt',
   captionDelay: 150,
 });
 
-// Створення розмітки для одного елемента галереї
 function createImageCard({ largeImageURL, webformatURL, tags, likes, views, comments, downloads }) {
   return `
     <li class="image-item">
@@ -44,12 +44,8 @@ function createImageCard({ largeImageURL, webformatURL, tags, likes, views, comm
 
 export function createGallery(images) {
   const markup = images.map(createImageCard).join('');
-  galleryContainer.innerHTML = markup;
+  galleryContainer.insertAdjacentHTML('beforeend', markup);
   lightbox.refresh();
-}
-
-export function clearGallery() {
-  galleryContainer.innerHTML = '';
 }
 
 export function showLoader() {
@@ -58,4 +54,12 @@ export function showLoader() {
 
 export function hideLoader() {
   loader?.classList.add('hidden');
+}
+
+export function showLoadMoreButton() {
+  loadMoreBtn?.classList.remove('hidden');
+}
+
+export function hideLoadMoreButton() {
+  loadMoreBtn?.classList.add('hidden');
 }
